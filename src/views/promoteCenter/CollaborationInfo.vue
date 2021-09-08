@@ -31,6 +31,7 @@
   </div>
 </template>
 <script>
+import { listAsync } from '@/api/agent'
 import handleClipboard from '@/utils/clipboard'
 
 export default {
@@ -41,23 +42,26 @@ export default {
       listLoading: false,
     }
   },
+  created() {
+    this.listAsync()
+  },
   methods: {
     listAsync() {
       this.listLoading = true
-      // listAsync().then((response) => {
-      //   const { Data, Code, Message } = response
-      //   if (Code === 0) {
-      //     this.list = Data
-      //   } else {
-      //     this.$notify({
-      //       title: '提示',
-      //       message: Message,
-      //     })
-      //   }
-      //   setTimeout(() => {
-      //     this.listLoading = false
-      //   }, 500)
-      // })
+      listAsync().then((response) => {
+        const { data, code, Message } = response
+        if (code === 20000) {
+          this.list = data
+        } else {
+          this.$notify({
+            title: '提示',
+            message: Message,
+          })
+        }
+        setTimeout(() => {
+          this.listLoading = false
+        }, 500)
+      })
     },
     handleClipboard(text) {
       handleClipboard(text, event)
