@@ -70,6 +70,34 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/TeamManage',
+    component: Layout,
+    redirect: '/TeamManage/MemberManage',
+    name: 'TeamManage',
+    meta: {
+      title: '团队管理',
+      icon: 'm03'
+    },
+    children: [
+      {
+        path: '/TeamManage/MemberManage',
+        component: () => import('@/views/teamManage/MemberManage'),
+        name: 'MemberManage',
+        meta: {
+          title: 'MemberManage'
+        }
+      },
+      {
+        path: '/TeamManage/AgentList',
+        component: () => import('@/views/teamManage/AgentList'),
+        name: 'AgentList',
+        meta: {
+          title: 'AgentList'
+        }
+      }
+    ]
+  },
+  {
     path: '/redirect',
     component: Layout,
     hidden: true,

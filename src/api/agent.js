@@ -6,3 +6,12 @@ export function listAsync() {
     method: 'post'
   })
 }
+
+// 下線代理查詢
+export function listAgentAsync(data) {
+  return request({
+    url: '/vue-element-admin/ListAgentAsync',
+    method: 'post',
+    data
+  })
+}

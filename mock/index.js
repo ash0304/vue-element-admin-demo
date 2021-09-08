@@ -6,13 +6,15 @@ const role = require('./role')
 const article = require('./article')
 const search = require('./remote-search')
 const agent = require('./agent')
+const member = require('./member')
 
 const mocks = [
   ...user,
   ...role,
   ...article,
   ...search,
-  ...agent
+  ...agent,
+  ...member
 ]
 
 // for front mock
