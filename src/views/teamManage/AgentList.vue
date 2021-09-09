@@ -92,7 +92,7 @@ export default {
         Pagination: {
           PageIndex: 1,
           PageSize: 10,
-          TotalCount: 10,
+          TotalCount: 30,
         },
       },
       targetColumn: [2, 3],

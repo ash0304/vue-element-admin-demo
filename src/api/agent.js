@@ -15,3 +15,19 @@ export function listAgentAsync(data) {
     data
   })
 }
+
+export function listAgentCommisiionAsync(data) {
+  return request({
+    url: '/vue-element-admin/ListAgentCommissionAsync',
+    method: 'post',
+    data
+  })
+}
+
+export function receiveAgentCommissionAsync(data) {
+  return request({
+    url: '/vue-element-admin/ReceiveAgentCommissionAsync',
+    method: 'post',
+    data
+  })
+}

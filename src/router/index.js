@@ -98,6 +98,34 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/TableSearch',
+    component: Layout,
+    redirect: '/TableSearch/CommissionDetail',
+    name: 'TableSearch',
+    meta: {
+      title: '报表查询',
+      icon: 'm04'
+    },
+    children: [
+      {
+        path: '/TableSearch/CommissionDetail',
+        component: () => import('@/views/tableSearch/CommissionDetail'),
+        name: 'CommissionDetail',
+        meta: {
+          title: 'CommissionDetail'
+        }
+      },
+      {
+        path: '/TableSearch/TradeHistory',
+        component: () => import('@/views/tableSearch/TradeHistory'),
+        name: 'TradeHistory',
+        meta: {
+          title: 'TradeHistory'
+        }
+      }
+    ]
+  },
+  {
     path: '/redirect',
     component: Layout,
     hidden: true,
