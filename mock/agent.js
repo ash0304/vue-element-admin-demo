@@ -96,4 +96,27 @@ module.exports = [
       }
     }
   },
+  {
+    url: "/vue-element-admin/TradeHistoryListAsync",
+    type: "post",
+    response: config => {
+      const Pagination = config.body.Pagination
+      return {
+        Success: true,
+        code: 20000,
+        Message: "@sentence(5,10)",
+        "data|11-30": [
+            {
+                CreateDate: time_str,
+                ActionType: "@integer(1, 3)",
+                Amount: "@float(60, 10000, 1, 2)",
+                AfterPoint: "@float(60, 10000, 1, 2)",
+                Note: "@string(\"lower\", 3,10)"
+            }
+        ],
+        ExtensionData: {},
+        Pagination: Pagination
+      }
+    }
+},
 ]

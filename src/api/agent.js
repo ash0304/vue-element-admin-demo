@@ -31,3 +31,11 @@ export function receiveAgentCommissionAsync(data) {
     data
   })
 }
+
+export function tradeHistoryListAsync(data) {
+  return request({
+    url: '/vue-element-admin/TradeHistoryListAsync',
+    method: 'post',
+    data
+  })
+}
