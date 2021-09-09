@@ -3,7 +3,9 @@
   "version": "4.4.0",
   "description": "A magical vue admin. An out-of-box UI solution for enterprise applications. Newest development stack of vue. Lots of awesome features",
   "author": "Ash",
+  "homepage": "https://ash0304.github.io/vue-element-admin-demo",
   "scripts": {
+    "deploy": "gh-pages -d dist",
     "dev": "vue-cli-service serve",
     "lint": "eslint --ext .js,.vue src",
     "build:prod": "vue-cli-service build",
@@ -25,6 +27,7 @@
     "element-ui": "2.13.2",
     "file-saver": "2.0.1",
     "fuse.js": "3.4.4",
+    "gh-pages": "^3.2.3",
     "js-cookie": "2.2.0",
     "jsonlint": "1.6.3",
     "jszip": "3.2.1",

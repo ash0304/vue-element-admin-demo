@@ -16,7 +16,7 @@
       </div>
       <ul>
         <!--  -->
-        <!-- <li v-for="(i, key) in sortInfo" :key="key">
+        <li v-for="(i, key) in sortInfo" :key="key">
           <span>
             <svg-icon :icon-class="i.icon" />{{ i.label }}
             <el-popover placement="top-start" trigger="hover">
@@ -30,16 +30,16 @@
             </el-popover>
           </span>
           <b>{{ dashboardthousandFilter(i) }}</b>
-        </li> -->
+        </li>
       </ul>
     </div>
     <div class="basic-block block2">
       <div class="block-title">趋势分析</div>
-      <!-- <Charts
+      <Charts
         ref="chart"
         :new-member="RegeditMemberByDay"
         :logined="LoginMemberByDay"
-      /> -->
+      />
     </div>
     <div class="blocks-row">
       <div class="basic-block block3">
@@ -53,9 +53,148 @@
   </div>
 </template>
 <script>
+import _ from 'lodash'
+import Charts from './components/Charts.vue'
+import { getHomeReportAsync } from '@/api/webInfo'
+import { parseTime } from '@/utils/parseTime'
 
 export default {
-  name: 'Dashboard'
+  name: 'Dashboard',
+  components: {
+    Charts
+  },
+  data() {
+    return {
+      info: {
+        RegeditMemberCnt: 0,
+        MemberCount: 0,
+        ActiveMemberCnt: 0,
+        TotalWinlose: 0,
+        AgentCommRate: 0,
+      },
+      LoginMemberByDay: {
+        data: [],
+        date: [],
+      },
+      RegeditMemberByDay: {
+        data: [],
+        date: [],
+      },
+    }
+  },
+  computed: {
+    sortInfo() {
+      return _.chain(this.info)
+        .map((i, key) => {
+          const obj = {}
+          switch (key) {
+            case 'RegeditMemberCnt':
+              obj.label = '新注册'
+              obj.icon = 'register'
+              obj.val = i
+              break
+            case 'MemberCount':
+              obj.label = '会员数'
+              obj.icon = 'Members'
+              obj.val = i
+              break
+            case 'ActiveMemberCnt':
+              obj.label = '活跃会员'
+              obj.icon = 'monitor-3'
+              obj.val = i
+              break
+            case 'TotalWinlose':
+              obj.label = '输赢'
+              obj.icon = 'dividend'
+              obj.val = i
+              break
+            case 'AgentCommRate':
+              obj.label = '佣金比例'
+              obj.icon = 'commission'
+              obj.val = i + '%'
+              break
+          }
+
+          return obj
+        })
+        .filter((i) => i.label)
+        .value()
+    }
+  },
+  created() {
+    this.getHomeReportAsync()
+  },
+  methods: {
+    parseTime,
+    dashboardthousandFilter(item) {
+      if (
+        item.label === '新注册' ||
+        item.label === '会员数' ||
+        item.label === '活跃会员' ||
+        item.label === '佣金比例'
+      ) {
+        return item.val
+      } else {
+        item.val += ''
+        if (!isNaN(item.val) && item.val !== '') {
+          item.val = Number(item.val).toFixed(2)
+          item.val += ''
+        }
+        const arr = item.val.split('.')
+        const re = /(\d{1,3})(?=(\d{3})+$)/g
+        return (
+          arr[0].replace(re, '$1,') + (arr.length === 2 ? '.' + arr[1] : '')
+        )
+      }
+    },
+    getHomeReportAsync() {
+      getHomeReportAsync().then((response) => {
+        const { code, data, Message } = response
+        if (code === 20000) {
+          if (data.WebBannerList === null) {
+            this.banner = []
+          } else {
+            const type = this.device === 'mobile' ? 2 : 1
+            this.banner = _.map(
+              data.WebBannerList.filter(i => i.DeviceCategoryID === type),
+              (i) => i.PicURL
+            )
+          }
+          if (data.SystemInformationMarqueeList === null) {
+            this.systemList = []
+          } else {
+            this.systemList = data.SystemInformationMarqueeList
+          }
+          this.LoginMemberByDay.data = []
+          this.LoginMemberByDay.date = []
+          this.RegeditMemberByDay.data = []
+          this.RegeditMemberByDay.date = []
+          for (let i = 0; i < data.LoginMemberByDay.length; i++) {
+            this.LoginMemberByDay.data.push(
+              data.LoginMemberByDay[i].MemberCount
+            )
+            this.LoginMemberByDay.date.push(
+              this.parseTime(data.LoginMemberByDay[i].DataDate, '{d}日')
+            )
+            this.RegeditMemberByDay.data.push(
+              data.RegeditMemberByDay[i].MemberCount
+            )
+            this.RegeditMemberByDay.date.push(
+              this.parseTime(data.RegeditMemberByDay[i].DataDate, '{d}日')
+            )
+          }
+          // 接收資料後在init一次圖表
+          this.$refs.chart.initChart()
+          this.listLength = this.systemList.length
+        } else {
+          this.$notify({
+            title: '提示',
+            message: Message,
+          })
+        }
+      })
+    },
+  }
 }
 </script>
 <style lang="scss" scoped>

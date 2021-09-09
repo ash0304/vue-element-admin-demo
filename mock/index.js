@@ -7,6 +7,7 @@ const article = require('./article')
 const search = require('./remote-search')
 const agent = require('./agent')
 const member = require('./member')
+const webInfo = require('./webInfo')
 
 const mocks = [
   ...user,
@@ -14,7 +15,8 @@ const mocks = [
   ...article,
   ...search,
   ...agent,
-  ...member
+  ...member,
+  ...webInfo
 ]
 
 // for front mock
