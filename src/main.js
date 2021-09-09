@@ -14,6 +14,7 @@ import App from './App'
 import store from './store'
 import router from './router'
 
+import veeValidate from '@/utils/veeValidate'
 import i18n from './lang' // internationalization
 import './icons' // icon
 import './permission' // permission control
@@ -37,6 +38,7 @@ if (process.env.NODE_ENV === 'production') {
   mockXHR()
 }
 
+Vue.use(veeValidate)
 Vue.component('TableFrame', TableFrame)
 Vue.component('Pagination', Pagination)
 
