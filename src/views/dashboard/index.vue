@@ -6,13 +6,13 @@
         <span>营运数据</span>
       </div>
       <div class="refresh-block">
-        <!-- <span class="refresh" @click="d_getData"
+        <span class="refresh" @click="d_getData"
           ><i
             >刷新时间 :
             {{ updateTime | parseTime('{y}/{m}/{d} {h}:{i}:{s}') }}</i
           >
           <b>刷新</b></span
-        > -->
+        >
       </div>
       <ul>
         <!--  -->
@@ -44,10 +44,10 @@
     <div class="blocks-row">
       <div class="basic-block block3">
         <div class="block-title system">系統公告</div>
-        <!-- <SystemBoard :list="systemList" :length="listLength" /> -->
+        <SystemBoard :list="systemList" :length="listLength" />
       </div>
       <div class="basic-block block4">
-        <!-- <Jumbotron :list="banner" /> -->
+        <Jumbotron :list="banner" />
       </div>
     </div>
   </div>
@@ -55,16 +55,26 @@
 <script>
 import _ from 'lodash'
 import Charts from './components/Charts.vue'
-import { getHomeReportAsync } from '@/api/webInfo'
+import d from '@/utils/debounce'
+import Jumbotron from './components/Jumbotron.vue'
+import SystemBoard from './components/SystemBoard.vue'
+import { getHomeReportAsync, getOperatingDataAsync } from '@/api/webInfo'
 import { parseTime } from '@/utils/parseTime'
+import gsap from 'gsap'
 
 export default {
   name: 'Dashboard',
   components: {
-    Charts
+    Charts,
+    Jumbotron,
+    SystemBoard
   },
   data() {
     return {
+      updateTime: null,
+      d_getData: d(() => {
+        this.getOperatingDataAsync()
+      }),
       info: {
         RegeditMemberCnt: 0,
         MemberCount: 0,
@@ -72,6 +82,8 @@ export default {
         TotalWinlose: 0,
         AgentCommRate: 0,
       },
+      systemList: [],
+      listLength: 0,
       LoginMemberByDay: {
         data: [],
         date: [],
@@ -80,6 +92,7 @@ export default {
         data: [],
         date: [],
       },
+      banner: [],
     }
   },
   computed: {
@@ -123,6 +136,7 @@ export default {
   },
   created() {
     this.getHomeReportAsync()
+    this.getOperatingDataAsync()
   },
   methods: {
     parseTime,
@@ -154,11 +168,7 @@ export default {
           if (data.WebBannerList === null) {
             this.banner = []
           } else {
-            const type = this.device === 'mobile' ? 2 : 1
-            this.banner = _.map(
-              data.WebBannerList.filter(i => i.DeviceCategoryID === type),
-              (i) => i.PicURL
-            )
+            this.banner = data.WebBannerList
           }
           if (data.SystemInformationMarqueeList === null) {
             this.systemList = []
@@ -192,6 +202,50 @@ export default {
             message: Message,
           })
         }
+      })
+    },
+    getOperatingDataAsync() {
+      getOperatingDataAsync().then((response) => {
+        const { code, data, Message } = response
+        if (code === 20000) {
+          this.updateData(
+            data.RegeditMemberCnt,
+            data.MemberCount,
+            data.ActiveMemberCnt,
+            data.TotalWinlose,
+            data.AgentCommRate
+          )
+        } else {
+          this.$notify({
+            title: '提示',
+            message: Message,
+          })
+        }
+      })
+    },
+    updateData(
+      RegeditMemberCnt,
+      MemberCount,
+      ActiveMemberCnt,
+      TotalWinlose,
+      AgentCommRate
+    ) {
+      this.updateTime = new Date()
+      this.info = {
+        RegeditMemberCnt: 0,
+        MemberCount: 0,
+        ActiveMemberCnt: 0,
+        TotalWinlose: 0,
+        AgentCommRate: 0,
+      }
+      gsap.to(this.info, {
+        ease: 'none',
+        duration: 1,
+        RegeditMemberCnt: RegeditMemberCnt,
+        MemberCount: MemberCount,
+        ActiveMemberCnt: ActiveMemberCnt,
+        TotalWinlose: TotalWinlose,
+        AgentCommRate: AgentCommRate,
       })
     },
   }

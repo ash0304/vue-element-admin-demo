@@ -6,3 +6,10 @@ export function getHomeReportAsync() {
     method: 'post'
   })
 }
+
+export function getOperatingDataAsync() {
+  return request({
+    url: '/vue-element-admin/GetOperatingDataAsync',
+    method: 'post'
+  })
+}

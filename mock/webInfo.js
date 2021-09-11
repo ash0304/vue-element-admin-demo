@@ -71,30 +71,53 @@ module.exports = [
           { DataDate: '2020-11-29', MemberCount: '@integer(0, 100)' },
           { DataDate: '2020-11-30', MemberCount: '@integer(0, 100)' }
         ],
-        SystemInformationMarqueeList: [
+        'SystemInformationMarqueeList|12-15': [
           {
-            Title: 'Test',
+            Title: '@string("lower", 3,10)',
             Content:
-              'Test Message'
+              '@string("lower", 50,80)'
           }
         ],
         WebBannerList: [
           {
             ADsPictureID: 6,
             PicURL:
-              'http://cdn.dev.opebet5.com/AgentWebFile/Activity/1601449756530.jpeg'
+              'https://s3.envato.com/files/248419285/Preview%20Image.jpg'
           },
           {
             ADsPictureID: 7,
             PicURL:
-              'http://cdn.dev.opebet5.com/AgentWebFile/Activity/1606103231004.jpeg'
+              'https://wallpaperaccess.com/full/2195679.jpg'
           },
           {
             ADsPictureID: 8,
             PicURL:
-              'http://cdn.dev.opebet5.com/AgentWebFile/Activity/1606103575706.jpeg'
+              'https://wallpaperaccess.com/full/2195669.jpg'
           }
         ]
+      }
+    }
+  },
+  {
+    url: '/vue-element-admin/GetOperatingDataAsync',
+    type: 'post',
+    response: {
+      Success: true,
+      code: 20000,
+      Message: '@sentence(5,10)',
+      data: {
+        ActiveMemberCnt: '@integer(0, 1000)',
+        TotalWinlose: '@float(60, 10000, 1, 2)',
+        AgentCommRate: '@float(0, 100, 1, 2)',
+        RegeditMemberCnt: '@integer(0, 100)',
+        MemberCount: '@integer(0, 100)'
+      },
+      ExtensionData: {},
+      Pagination: {
+        PageIndex: '@integer(0, 10)',
+        PageSize: '@integer(0, 10)',
+        TotalCount: '@integer(0, 10)',
+        PageCount: '@integer(0, 10)'
       }
     }
   },
