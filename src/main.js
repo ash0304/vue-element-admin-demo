@@ -24,7 +24,7 @@ import * as filters from './filters' // global filters
 
 import TableFrame from '@/components/TableFrame'
 import Pagination from '@/components/Pagination'
-
+import ModalFrame from '@/components/Modal'
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api
@@ -41,6 +41,7 @@ if (process.env.NODE_ENV === 'production') {
 Vue.use(veeValidate)
 Vue.component('TableFrame', TableFrame)
 Vue.component('Pagination', Pagination)
+Vue.component('ModalFrame', ModalFrame)
 
 Vue.use(Element, {
   size: Cookies.get('size') || 'medium', // set element-ui default size

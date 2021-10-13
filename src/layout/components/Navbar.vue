@@ -71,6 +71,9 @@
         </template>
       </div>
     </div>
+    <WdlModal ref="wdl" @withdraw="updateWallet" />
+    <FeedModal ref="feed" />
+    <PwdModal ref="pwd" />
   </div>
 </template>
 
@@ -78,11 +81,17 @@
 import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
+import WdlModal from '@/components/Modal/types/withdraw'
+import FeedModal from '@/components/Modal/types/feedback.vue'
+import PwdModal from '@/components/Modal/types/changePwd'
 
 export default {
   components: {
     Breadcrumb,
     Hamburger,
+    FeedModal,
+    PwdModal,
+    WdlModal
   },
   filters: {
     priceFormat: function(value) {
@@ -142,9 +151,8 @@ export default {
           break
         case '联系客服':
           window.open(
-            this.serviceList[0].sub,
-            '_blank',
-            'toolbar=no,scrollbars=no,menubar=no,status=no,resizable=yes,location=no'
+            'https://www.google.com/',
+            '_blank'
           )
           break
         case '留言反馈':
