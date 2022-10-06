@@ -4,7 +4,7 @@
       <ValidationProvider v-if="ValidBankPassword === 1" v-slot="{ errors }" rules="required" tag="label">
         <h6>取款密码</h6>
         <el-input v-model="input1" placeholder="请输入取款密码" type="password">
-          <Eye slot="suffix" />
+          <!-- <Eye slot="suffix" /> -->
         </el-input>
         <span>{{ errors[0] }}</span>
       </ValidationProvider>
@@ -27,7 +27,7 @@
       </label>
       <ValidationProvider
         v-slot="{ errors }"
-        :rules="`required|integer|between: ${withdrawUpperLimit}, ${wallet}`"
+        :rules="`required|integer|between: ${123}, ${wallet}`"
         tag="label"
       >
         <h6>取款金额</h6>
@@ -40,7 +40,7 @@
       </ValidationProvider>
       <ol>
         <span>温馨提示：</span>
-        <li>取款不得低于 <b>{{ withdrawUpperLimit }}</b> 元</li>
+        <li>取款不得低于 <b>{{ 123 }}</b> 元</li>
         <li>提交后须经由财务审核，若长期未审核请联系客服。</li>
       </ol>
       <div class="modal-btn" @click="handleSubmit(d_addAgentWithdrawAsync)">提交</div>
@@ -48,7 +48,7 @@
   </ModalFrame>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+// import { mapGetters } from 'vuex'
 import d from '@/utils/debounce'
 
 export default {
@@ -66,9 +66,9 @@ export default {
       d_addAgentWithdrawAsync: d(this.addAgentWithdrawAsync)
     }
   },
-  computed: {
-    ...mapGetters(['withdrawUpperLimit'])
-  },
+  // computed: {
+  //   ...mapGetters(['withdrawUpperLimit'])
+  // },
   watch: {
     show(ni) {
       if (ni) {

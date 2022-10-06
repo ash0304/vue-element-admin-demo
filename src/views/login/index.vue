@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="login-container">
-      <div class="ope-logo" />
+      <div class="demo-logo">DEMO</div>
       <Parallax :section-class="'form-container'" :style="{ left: `${formLeft}px` }">
         <Form />
       </Parallax>
@@ -9,22 +9,22 @@
         <div class="top-banner">
           <img id="banner1" src="../../assets/login/img_banner_layer01.png" alt="">
           <Parallax :section-class="'layer02'">
-            <img id="banner2" src="../../assets/login/img_banner_layer02.png" alt="">
+            <!-- <img id="banner2" src="../../assets/login/img_banner_layer02.png" alt=""> -->
           </Parallax>
           <Parallax :section-class="'layer03'" :speed-factor="0.05">
             <img id="banner3" src="../../assets/login/img_banner_layer03.png" alt="">
           </Parallax>
           <Parallax :section-class="'layer04'" :speed-factor="0.2">
-            <img id="banner4" src="../../assets/login/img_banner_layer04.png" alt="">
+            <!-- <img id="banner4" src="../../assets/login/img_banner_layer04.png" alt=""> -->
           </Parallax>
           <Parallax :section-class="'layer05'" :speed-factor="0.25">
-            <img id="banner5" src="../../assets/login/img_banner_layer05.png" alt="">
+            <!-- <img id="banner5" src="../../assets/login/img_banner_layer05.png" alt=""> -->
           </Parallax>
           <Parallax :section-class="'layer06'" :speed-factor="0.3">
-            <img id="banner6" src="../../assets/login/img_banner_layer06.png" alt="">
+            <!-- <img id="banner6" src="../../assets/login/img_banner_layer06.png" alt=""> -->
           </Parallax>
           <Parallax :section-class="'layer07'" :speed-factor="0.5">
-            <img id="banner7" src="../../assets/login/img_banner_layer07.png" alt="">
+            <!-- <img id="banner7" src="../../assets/login/img_banner_layer07.png" alt=""> -->
           </Parallax>
         </div>
         <div class="service-row">
@@ -102,10 +102,10 @@
         <div class="support">
           <div class="left">
             <Parallax :section-class="'phone02'" :speed-factor="0.1">
-              <img id="phone02" src="../../assets/login/img_iphone_02.png" alt="">
+              <!-- <img id="phone02" src="../../assets/login/img_iphone_02.png" alt=""> -->
             </Parallax>
             <Parallax :section-class="'phone01'" :speed-factor="0.2">
-              <img id="phone01" src="../../assets/login/img_iphone_01.png" alt="">
+              <!-- <img id="phone01" src="../../assets/login/img_iphone_01.png" alt=""> -->
             </Parallax>
           </div>
           <div class="right">
@@ -246,15 +246,17 @@ export default {
   #sec0, #sec5, #sec6 {
     opacity: 0;
   }
-  .ope-logo {
+  .demo-logo {
     width: 148px;
     height: 52px;
-    background: url('../../assets/login/logo.png');
+    /* background: url('../../assets/login/logo.png'); */
     position: absolute;
     left: 50%;
     transform: translateX(-600px);
     top: 50px;
     z-index: 20;
+    font-size: 24px;
+    color: rgb(126, 163, 221);
   }
   .form-container {
     position: absolute;

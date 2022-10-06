@@ -71,7 +71,7 @@
         </template>
       </div>
     </div>
-    <WdlModal ref="wdl" @withdraw="updateWallet" />
+    <WdlModal ref="wdl" />
     <FeedModal ref="feed" />
     <PwdModal ref="pwd" />
   </div>

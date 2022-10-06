@@ -7,7 +7,8 @@
       <router-link key="expand" class="sidebar-logo-link" to="/">
         <div class="sidebar-logo">
           <!-- eslint-disable-next-line -->
-          <img :src="!isCollapse ? url : urlco" />
+          <!-- <img :src="!isCollapse ? url : urlco" /> -->
+          <div class="demo-logo">DEMO</div>
         </div>
       </router-link>
     </transition>
@@ -41,6 +42,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.demo-logo {
+  font-size: 24px;
+  color: rgb(126, 163, 221);
+}
 .sidebarLogoFade-enter-active {
   transition: opacity 1.5s;
 }
